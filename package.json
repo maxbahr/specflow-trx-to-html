@@ -1,0 +1,38 @@
+{
+  "name": "trx-to-html",
+  "description": "Convert trx files to html",
+  "author": "Maksymilian Bahr",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && ts-node ./dist/src/index.js",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint"
+  },
+  "dependencies": {
+    "file-type": "^19.0.0",
+    "fs-extra": "^11.2.0",
+    "lodash": "^4.17.21",
+    "mime-types": "^2.1.35",
+    "moment": "^2.30.1",
+    "sharp": "^0.33.2",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@types/lodash": "^4.14.202",
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "20.8.2",
+    "@types/xml2js": "^0.4.14",
+    "gts": "^5.2.0",
+    "typescript": "~5.2.0"
+  }
+}
