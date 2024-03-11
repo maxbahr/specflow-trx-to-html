@@ -104,6 +104,7 @@
 
     .error-msg {
       white-space: pre-wrap;
+      word-break: break-word;
       border: 1px solid #ff9a9a;
       border-left-width: 3px;
       border-radius: 6px;
@@ -235,7 +236,7 @@
     </div>
 
     <div class="container pt-3">
-      <h2>Domain Test Summary</h1>
+      <h2>Domain Test Summary</h2>
         <div class="row">
           <div class="col container-wrapper">
             <table class="table table-hover">
@@ -435,17 +436,11 @@
           const tableRows = document.querySelectorAll('.table-row');
           let index = 0;
           tableRows.forEach(row => {
-              console.log(`---${++index}--------------------------------------------`)
-
               const domainValue = row.getAttribute('data-bs-domain').toLowerCase();
               const featureValue = row.getAttribute('data-bs-feature').toLowerCase();
               const textValue = row.getAttribute('data-bs-title').toLowerCase();
               const statusValue = row.getAttribute('data-bs-outcome').toLowerCase();
               const rerunValue = (row.getAttribute('data-bs-rerun') === 'true');
-
-              console.log('rerunChecked',rerunChecked)
-              console.log('rerunValue',rerunValue)
-
               const domainMatch = selectedDomain === 'choose...' || domainValue === selectedDomain;
               const featureMatch = selectedFeature === 'choose...' || featureValue === selectedFeature;
               const textMatch = textValue.includes(searchKeyword);
@@ -454,11 +449,6 @@
               const ignoredMatch = ignoredChecked && statusValue === 'ignored';
               const rerunMatch = rerunChecked && rerunValue === true;
               const checkboxCondition = ((passedMatch || failedMatch || ignoredMatch || rerunMatch) || (!passedChecked && !failedChecked && !ignoredChecked && !rerunChecked));
-
-              console.log('rerunMatch',rerunMatch)
-              console.log('checkboxCondition',checkboxCondition)
-              console.log('(domainMatch && featureMatch && textMatch && checkboxCondition)',(domainMatch && featureMatch && textMatch && checkboxCondition))
-
               if (domainMatch && featureMatch && textMatch && checkboxCondition) {
                   row.classList.remove('d-none');
               } else {

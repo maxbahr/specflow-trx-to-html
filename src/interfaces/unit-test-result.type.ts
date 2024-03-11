@@ -1,4 +1,4 @@
-import { AttachmentBase64 } from "../attachment-base64-converter.js";
+import { IAttachmentBase64 } from "./attachment-base64.type.js";
 import { IGherkinStep } from "./gherkin-step.type.js";
 
 export interface IUnitTestResult {
@@ -16,7 +16,7 @@ export interface IUnitTestResult {
     endTime: Date;
     stdout: string | null;
     gherkinLogs: IGherkinStep[] | null
-    attachmentFiles?: AttachmentBase64[] 
+    attachmentFiles?: IAttachmentBase64[] 
     errMsg: string | null;
     rerun: boolean;
     previousRun?: IUnitTestResult;
