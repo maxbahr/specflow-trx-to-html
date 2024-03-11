@@ -1,6 +1,6 @@
 {
-  "name": "trx-to-html",
-  "description": "Convert trx files to html",
+  "name": "specflow-trx-to-html",
+  "description": "Convert specflow trx files to stunning html",
   "author": "Maksymilian Bahr",
   "version": "0.1.0",
   "license": "MIT",
