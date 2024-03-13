@@ -177,11 +177,12 @@ export class HtmlComponent {
 
     private static listAttachments(attachments: IAttachmentBase64[], showHaeading: boolean = true): string {
         let text = '';
+        const prefix = 'data:image/png;base64,'
         for (const attachment of attachments) {
             attachment.fileType.startsWith('image')
                 ?
                 text += `<li>
-          <img src="data:image/png;base64,${attachment.base64Data}" alt="${attachment.fileName}">
+          <img src="${attachment.base64Data.startsWith(prefix) ? attachment.base64Data : prefix+attachment.base64Data}" alt="${attachment.fileName}">
           </li>`
                 :
                 text += `<li>

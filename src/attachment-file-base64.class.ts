@@ -4,6 +4,7 @@ import * as fileType from 'file-type';
 import sharp from 'sharp';
 import { IUnitTestResult } from './interfaces/unit-test-result.type.js';
 import { IAttachmentBase64 } from './interfaces/attachment-base64.type.js';
+import Jimp from 'jimp';
 
 export class AttachmentFilesBase64 {
 
@@ -46,8 +47,7 @@ export class AttachmentFilesBase64 {
         const fileName = path.basename(filePath);
         const type = await this.getFileTypeAsync(data);
         if (type.startsWith('image')) {
-            const resizedData = await this.resizeImageAsync(data, imgWidth, imgHeight);
-            const base64Data = Buffer.from(resizedData).toString('base64');
+            const base64Data = await this.resizeImageAsync2(data, imgWidth, imgHeight);
             return { filePath, fileName, base64Data, fileType: type };
         } else {
             const base64Data = Buffer.from(data).toString('base64');
@@ -60,9 +60,33 @@ export class AttachmentFilesBase64 {
         return type ? type.mime : 'unknown';
     }
 
-    private static async resizeImageAsync(data: Buffer, width: number, height: number): Promise<Buffer> {
-        return await sharp(data)
+    private static async resizeImageAsync(data: Buffer, width: number, height: number): Promise<string> {
+        const resizedData = await sharp(data)
             .resize({ width: width, height: height, fit: 'inside' })
             .toBuffer();
+         return Buffer.from(resizedData).toString('base64');
     }
+
+    private static async resizeImageAsync2(
+        data: Buffer,
+        w: number,
+        h: number
+      ): Promise<string> {
+        try {
+          const image = await Jimp.read(data)
+          const { width, height } = image.bitmap
+          let resizedImage
+          if (width > height) {
+            w = width > w ? w : width
+            resizedImage = image.resize(w, Jimp.AUTO)
+          } else {
+            h = height > h ? h : height
+            resizedImage = image.resize(Jimp.AUTO, h)
+          }
+          return await resizedImage.getBase64Async(Jimp.AUTO)
+        } catch (err) {
+          console.error('Error while resizing:', err)
+          throw err
+        }
+      }
 }

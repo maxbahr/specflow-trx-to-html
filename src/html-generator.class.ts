@@ -8,8 +8,8 @@ import { HtmlComponent } from './html-component.class.js';
 
 export class HtmlGenerator {
 
-  public static generateHTML(summaryResult: ISummaryResult, summaryDomainResult: ISummaryResult[], results: IUnitTestResult[]): string {
-    let htmlContent: string = fs.readFileSync('templates/template.html', 'utf-8');
+  public static generateHTML(summaryResult: ISummaryResult, summaryDomainResult: ISummaryResult[], results: IUnitTestResult[], templatePath: string): string {
+    let htmlContent: string = fs.readFileSync(templatePath, 'utf-8');
     let iterator: number = 0;
     let testTableContent: string = "";
     let domainSummaryTableContent: string = "";
