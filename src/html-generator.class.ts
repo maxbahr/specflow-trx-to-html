@@ -5,11 +5,12 @@ import _ from 'lodash';
 import { ISummaryResult } from './interfaces/summary-result.type.js';
 import { FileUtils } from './fs-utils.class.js';
 import { HtmlComponent } from './html-component.class.js';
+import { htmlTemplate } from './html-template.js';
 
 export class HtmlGenerator {
 
-  public static generateHTML(summaryResult: ISummaryResult, summaryDomainResult: ISummaryResult[], results: IUnitTestResult[], templatePath: string): string {
-    let htmlContent: string = fs.readFileSync(templatePath, 'utf-8');
+  public static generateHTML(summaryResult: ISummaryResult, summaryDomainResult: ISummaryResult[], results: IUnitTestResult[]): string {
+    let htmlContent: string = htmlTemplate
     let iterator: number = 0;
     let testTableContent: string = "";
     let domainSummaryTableContent: string = "";
@@ -62,5 +63,5 @@ export class HtmlGenerator {
       minifyURLs: true
     };
     return minify(htmlContent, options);
-  }
+  }  
 }

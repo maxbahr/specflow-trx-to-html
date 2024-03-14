@@ -12,6 +12,11 @@ export class FileUtils {
     }
 
     public static async findTrxFilesAsync(folderPath: string): Promise<string[]> {
+        // if (!this.isValidPath(folderPath)) {
+        //     throw new Error(
+        //       `'${folderPath}' is not valid folder path. Should include path separator`
+        //     )
+        //   }
         let trxFiles: string[] = [];
 
         async function findFilesRecursively(currentPath: string) {
@@ -66,4 +71,15 @@ export class FileUtils {
             return [];
         }
     }
+
+    private static isValidPath(filePath: string): boolean {
+        try {
+          const n = path.resolve(filePath)
+          const p = path.sep  
+          const stats = path.normalize(filePath).includes(path.sep)
+          return stats
+        } catch (error) {
+          return false
+        }
+      }
 }
